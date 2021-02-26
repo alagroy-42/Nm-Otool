@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:34:12 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/25 11:26:57 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/02/25 13:02:55 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 typedef struct mach_header		t_mh;
 typedef struct mach_header_64	t_mh_64;
+typedef struct load_command		t_lc;
 
 typedef struct					s_file
 {

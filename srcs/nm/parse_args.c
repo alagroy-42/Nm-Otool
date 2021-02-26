@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 15:15:22 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/25 11:32:33 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/02/25 12:37:58 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	**get_files(int ac, char **av, int offset)
 	{
 		if (!(filelist[i - offset - 1] = ft_strdup(av[i])))
 		{
-			ft_free_2dstr(filelist);
+			ft_2dstrdel(&filelist);
 			exit(EXIT_FAILURE);
 		}
 	}

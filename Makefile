@@ -6,7 +6,7 @@
 #    By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 16:41:59 by alagroy-          #+#    #+#              #
-#    Updated: 2021/02/24 19:55:52 by alagroy-         ###   ########.fr        #
+#    Updated: 2021/02/26 13:29:31 by alagroy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCLUDE_PATH += $(LIBDIR)includes/
 LIBDIR = ./libft/
 LIB = $(LIBDIR)libft.a
 
-SRC_NM = ft_nm.c parse_args.c
+SRC_NM = ft_nm.c parse_args.c read_file.c symtab.c display.c display_utils.c
 SRC_OTOOL = ft_otool.c
 SRC_SHARED = load_file.c utils.c
 
@@ -36,7 +36,7 @@ OBJS_SHARED = $(addprefix $(OBJ_PATH)shared/, $(SRC_SHARED:.c=.o))
 OBJS = $(subst $(SRC_PATH),$(OBJ_PATH),$(SRCS:.c=.o))
 
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
 CFLAGS += $(addprefix -I , $(INCLUDE_PATH))
 
 HEADER += ./includes/ft_nm.h

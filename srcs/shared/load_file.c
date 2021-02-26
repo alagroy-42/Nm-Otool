@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 12:05:06 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/25 11:28:17 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/02/25 15:34:10 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ static int	parse_magic(uint32_t magic)
 
 int			check_file(t_file file)
 {
-	if (file.arch == ARCH_64)
-	{
-		ft_putendl("Mach-O 64 bits yaaaaay !!");
+	if (file.arch == ARCH_64 || file.arch == ARCH_32)
 		return (EXIT_SUCCESS);
-	}
 	else if (file.arch == E_BADFILE)
 		ft_dprintf(2, "error: %s : %s\n", file.filename, ERROR_OPEN);
 	else if (file.arch == E_NOOBJ)
@@ -51,9 +48,7 @@ t_file		load_file(char *filename)
 		file.arch = E_NOMEM;
 	if ((file.fd = open(filename, O_RDONLY)) == -1
 		|| fstat(file.fd, &filestats) == -1)
-	{
 		return (file);
-	}
 	file.size = filestats.st_size;
 	if ((file.ptr = mmap(NULL, file.size, PROT_READ, MAP_PRIVATE, file.fd, 0))
 		== MAP_FAILED)

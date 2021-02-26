@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:14:32 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/17 22:21:40 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/02/26 12:26:04 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			ft_putendl_fd(const char *d, int fd);
 void			ft_putnbr_fd(int n, int fd);
 t_list			*ft_lstnew(const void *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void			ft_lstdel(t_list **alst, void(*del)(void *, size_t));
+void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
@@ -98,8 +98,9 @@ char			*ft_strndup(const char *s1, size_t n);
 size_t			ft_lstsize(t_list *begin);
 void			ft_lstend(t_list **alst, t_list *new);
 void			ft_lstmid(t_list *alst, t_list *new, size_t index);
+void			ft_lstsort(t_list *alst, int (*cmp)(t_list *, t_list *));
 int				get_next_line(const int fd, char **line);
-void			ft_free_2dstr(char **array);
+void			ft_2dstrdel(char ***array);
 void			ft_print_2da(char **array);
 void			ft_str2ddel(char **tab, int index);
 char			*ft_strreplace(char *str, char find, char replace);

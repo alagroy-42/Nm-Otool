@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_2da.c                                      :+:      :+:    :+:   */
+/*   ft_lstsort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 12:19:27 by alagroy-          #+#    #+#             */
-/*   Updated: 2019/04/12 09:21:56 by alagroy-         ###   ########.fr       */
+/*   Created: 2021/02/25 16:14:00 by alagroy-          #+#    #+#             */
+/*   Updated: 2021/02/26 12:41:39 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_2dstr(char **array)
+void		ft_lstsort(t_list *alst, int (*cmp)(t_list *, t_list *))
 {
-	int	i;
+	t_list	*tmp;
+	size_t	i;
+	size_t	lstsize;
+	void	*tmp_content;
 
-	if (!array)
-		return ;
 	i = -1;
-	while (array[++i])
-		free(array[i]);
-	free(array);
+	lstsize = ft_lstsize(alst);
+	while (++i < lstsize)
+	{
+		tmp = alst;
+		while (tmp)
+		{
+			if (tmp->next && cmp(tmp, tmp->next))
+			{
+				tmp_content = tmp->content;
+				tmp->content = tmp->next->content;
+				tmp->next->content = tmp_content;
+			}
+			tmp = tmp->next;
+		}
+	}
 }
