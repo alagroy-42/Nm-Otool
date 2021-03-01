@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:34:12 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/25 13:02:55 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/01 12:41:19 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,31 @@
 # define ERROR_OPEN "File cannot be opened, check its existence and its rights"
 # define ERROR_MAGIC "The file was not recognized as a valid object file"
 
-typedef struct mach_header		t_mh;
-typedef struct mach_header_64	t_mh_64;
-typedef struct load_command		t_lc;
+typedef struct mach_header			t_mh;
+typedef struct mach_header_64		t_mh_64;
+typedef struct load_command			t_lc;
+typedef struct segment_command		t_seg;
+typedef struct segment_command_64	t_seg64;
+typedef struct section				t_sect;
+typedef struct section_64			t_sect64;
 
-typedef struct					s_file
+typedef struct						s_file
 {
 	int			fd;
 	void		*ptr;
 	off_t		size;
 	uint32_t	magic;
 	int			arch;
+	int			ntext;
+	int			ndata;
+	int			nbss;
+	int			endata;
+	int			endtext;
 	char		*filename;
-}								t_file;
+}									t_file;
 
-t_file							load_file(char *filname);
-void							ft_freefile(t_file file);
-int								check_file(t_file file);
+t_file								load_file(char *filname);
+void								ft_freefile(t_file file);
+int									check_file(t_file file);
 
 #endif

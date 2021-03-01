@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 13:13:52 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/26 15:51:33 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/01 16:09:24 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,32 @@ static t_sym	create_sym(void *nlist_ptr, char *strtab, int arch)
 	}
 	return (sym);
 }
+
+t_list			*get_symlist(t_file file, t_symtab *symtab_lc)
+{
+	t_list		*beg;
+	t_list		*elem;
+	t_nlist32		*symtab;
+	t_sym		sym;
+	uint32_t	i;
+
+	i = -1;
+	beg = NULL;
+	symtab = file.ptr + symtab_lc->symoff;
+	while (++i < symtab_lc->nsyms)
+	{
+		sym = create_sym(symtab + i, file.ptr + symtab_lc->stroff, ARCH_32);
+		if (!(elem = ft_lstnew(&sym, sizeof(t_sym))))
+		{
+			//do leaks
+			break ;
+		}
+		ft_lstend(&beg, elem);
+	}
+	ft_lstsort(beg, compare_syms);
+	return (beg);
+}
+
 
 t_list			*get_symlist_64(t_file file, t_symtab *symtab_lc)
 {

@@ -6,7 +6,7 @@
 #    By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 16:41:59 by alagroy-          #+#    #+#              #
-#    Updated: 2021/02/26 13:29:31 by alagroy-         ###   ########.fr        #
+#    Updated: 2021/03/01 16:11:15 by alagroy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ INCLUDE_PATH += $(LIBDIR)includes/
 LIBDIR = ./libft/
 LIB = $(LIBDIR)libft.a
 
-SRC_NM = ft_nm.c parse_args.c read_file.c symtab.c display.c display_utils.c
+SRC_NM =	ft_nm.c parse_args.c read_file.c symtab.c display.c display_utils.c \
+			sections.c
 SRC_OTOOL = ft_otool.c
 SRC_SHARED = load_file.c utils.c
 

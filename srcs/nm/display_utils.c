@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 12:53:50 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/26 15:49:33 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/01 13:15:38 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,34 @@ int			sym_is_undefined(t_sym *sym)
 	return (0);
 }
 
-char		get_sym_type(t_sym *sym)
+static char	get_sect_type(int nsect, t_file *file)
+{
+	if (nsect == file->nbss)
+		return ('B');
+	else if (nsect >= file->ntext && nsect < file->endtext)
+		return ('T');
+	else if (nsect >= file->ndata && nsect < file->endata)
+		return ('D');
+	else
+		return ('S');
+}
+
+char		get_sym_type(t_sym *sym, t_file *file)
 {
 	char	c;
 
-	if (sym_is_undefined(sym))
+	if (sym_is_undefined(sym) && sym_is_global(sym)
+		&& sym->nlist.nlist64.n_value)
+		c = 'C';
+	else if (sym_is_undefined(sym))
 		c = 'U';
 	else if (((sym->nlist.nlist64.n_type) & N_TYPE) == N_ABS)
 		c = 'A';
-	else
-		c = 'T';
+	else if (((sym->nlist.nlist64.n_type) & N_TYPE) == N_INDR)
+		c = 'I';
+	else if (((sym->nlist.nlist64.n_type) & N_TYPE) == N_SECT
+		&& sym->nlist.nlist64.n_sect)
+		c = get_sect_type(sym->nlist.nlist64.n_sect, file);
 	if (!sym_is_global(sym))
 		c = ft_tolower(c);
 	return (c);
