@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 12:53:50 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/01 13:15:38 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/03 16:30:49 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int			sym_is_undefined(t_sym *sym)
 
 static char	get_sect_type(int nsect, t_file *file)
 {
-	if (nsect == file->nbss)
+	if (nsect == file->bss)
 		return ('B');
-	else if (nsect >= file->ntext && nsect < file->endtext)
+	else if (nsect == file->text)
 		return ('T');
-	else if (nsect >= file->ndata && nsect < file->endata)
+	else if (nsect == file->data)
 		return ('D');
 	else
 		return ('S');
@@ -42,6 +42,7 @@ char		get_sym_type(t_sym *sym, t_file *file)
 {
 	char	c;
 
+	c = ' ';
 	if (sym_is_undefined(sym) && sym_is_global(sym)
 		&& sym->nlist.nlist64.n_value)
 		c = 'C';

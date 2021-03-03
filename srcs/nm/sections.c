@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 12:24:28 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/01 15:23:17 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:00:13 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,19 @@ static void	loop_segs(t_file *file, t_seg *cmd, int *i_sect)
 	i = -1;
 	nsects = cmd->nsects;
 	sect = (void *)cmd + sizeof(t_seg);
-	if (!ft_strcmp(cmd->segname, "__TEXT"))
+	while (++i < nsects)
 	{
-		file->ntext = *i_sect;
-		*i_sect += nsects;
-		file->endtext = *i_sect;
-	}
-	else if (!ft_strcmp(cmd->segname, "__DATA"))
-	{
-		file->ndata = *i_sect;
-		while (++i < nsects)
-		{
-			if (!ft_strcmp(((t_sect *)sect)->sectname, "__bss"))
-				file->nbss = *i_sect;
-			(*i_sect)++;
-			sect += sizeof(t_sect);
-		}
-		file->endata = *i_sect;
+		if (!ft_strcmp(((t_sect *)sect)->segname, "__TEXT")
+			&& !ft_strcmp(((t_sect *)sect)->sectname, "__text"))
+			file->text = *i_sect;
+		if (!ft_strcmp(((t_sect *)sect)->segname, "__DATA")
+			&& !ft_strcmp(((t_sect *)sect)->sectname, "__data"))
+			file->data = *i_sect;
+		if (!ft_strcmp(((t_sect *)sect)->segname, "__DATA")
+			&& !ft_strcmp(((t_sect *)sect)->sectname, "__bss"))
+			file->bss = *i_sect;
+		(*i_sect)++;
+		sect += sizeof(t_sect);
 	}
 }
 
@@ -50,23 +46,19 @@ static void	loop_segs_64(t_file *file, t_seg64 *cmd, int *i_sect)
 	i = -1;
 	nsects = cmd->nsects;
 	sect = (void *)cmd + sizeof(t_seg64);
-	if (!ft_strcmp(cmd->segname, "__TEXT"))
+	while (++i < nsects)
 	{
-		file->ntext = *i_sect;
-		*i_sect += nsects;
-		file->endtext = *i_sect;
-	}
-	else if (!ft_strcmp(cmd->segname, "__DATA"))
-	{
-		file->ndata = *i_sect;
-		while (++i < nsects)
-		{
-			if (!ft_strcmp(((t_sect64 *)sect)->sectname, "__bss"))
-				file->nbss = *i_sect;
-			(*i_sect)++;
-			sect += sizeof(t_sect64);
-		}
-		file->endata = *i_sect;
+		if (!ft_strcmp(((t_sect64 *)sect)->segname, "__TEXT")
+			&& !ft_strcmp(((t_sect64 *)sect)->sectname, "__text"))
+			file->text = *i_sect;
+		if (!ft_strcmp(((t_sect64 *)sect)->segname, "__DATA")
+			&& !ft_strcmp(((t_sect64 *)sect)->sectname, "__data"))
+			file->data = *i_sect;
+		if (!ft_strcmp(((t_sect64 *)sect)->segname, "__DATA")
+			&& !ft_strcmp(((t_sect64 *)sect)->sectname, "__bss"))
+			file->bss = *i_sect;
+		(*i_sect)++;
+		sect += sizeof(t_sect64);
 	}
 }
 
@@ -78,6 +70,8 @@ void		find_sect_index(t_file *file)
 	int			ncmds;
 
 	i = -1;
+	if (!file->arch || file->arch > FAT_64)
+		return ;
 	if (file->arch == ARCH_64)
 	{
 		ncmds = ((t_mh_64 *)(file->ptr))->ncmds;
