@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:01:41 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/03 16:16:19 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:34:05 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,29 @@ static int	check_display(t_sym *sym)
 	return (EXIT_SUCCESS);
 }
 
-void		display_syms(t_list *list, t_nm nm, t_file file)
+void		display_syms(t_sym *sym_list, t_nm nm, t_file file, uint32_t nsyms)
 {
-	int		w;
+	int			w;
+	uint32_t	i;
 
 	w = 16;
-	if (file.arch == ARCH_32 || file.arch == FAT_32)
+	if (file.arch == ARCH_32)
 		w = 8;
-	while (list)
+	i = -1;
+	while (++i < nsyms)
 	{
-		if ((nm.g && !sym_is_global(list->content)) || (nm.u &&
-			!sym_is_undefined(list->content)) || check_display(list->content))
-		{
-			list = list->next;
+		if ((nm.g && !sym_is_global(&sym_list[i])) || (nm.u &&
+			!sym_is_undefined(&sym_list[i])) || check_display(&sym_list[i]))
 			continue ;
-		}
 		if (nm.j || nm.u)
-			ft_putendl(((t_sym *)list->content)->name);
-		else if (!sym_is_undefined(list->content))
-			ft_printf("%0*llx %c %s\n", w, get_sym_value(list->content, w),
-				get_sym_type(list->content, &file),
-				((t_sym *)list->content)->name);
+			ft_putendl(sym_list[i].name);
+		else if (!sym_is_undefined(&sym_list[i]))
+			ft_printf("%0*llx %c %s\n", w, get_sym_value(&sym_list[i], w),
+				get_sym_type(&sym_list[i], &file),
+				sym_list[i].name);
 		else
-			ft_printf("%*c %c %s\n", w, ' ', get_sym_type(list->content, &file),
-				((t_sym *)list->content)->name);
-		list = list->next;
+			ft_printf("%*c %c %s\n", w, ' ', get_sym_type(&sym_list[i], &file),
+				sym_list[i].name);
 	}
+	// free_syms(sym_list);
 }

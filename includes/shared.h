@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:34:12 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/03 13:54:52 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/05 17:27:53 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 # define ERROR_OPEN "File cannot be opened, check its existence and its rights"
 # define ERROR_MAGIC "The file was not recognized as a valid object file"
 
+# define BENDIAN 1
+# define LENDIAN 2
+
 typedef struct mach_header			t_mh;
 typedef struct mach_header_64		t_mh_64;
 typedef struct load_command			t_lc;
@@ -46,23 +49,35 @@ typedef struct section				t_sect;
 typedef struct section_64			t_sect64;
 typedef struct ranlib				t_rlib;
 typedef struct ar_hdr				t_arhdr;
+typedef struct fat_header			t_fathdr;
+typedef struct fat_arch				t_fatarch;
+typedef struct fat_arch_64			t_fatarch64;
 
 typedef struct						s_file
 {
 	int			fd;
 	void		*ptr;
 	off_t		size;
-	uint32_t	magic;
-	int			arch;
-	int			text;
-	int			data;
-	int			bss;
+	uint8_t		endian;
+	uint8_t		arch;
+	uint8_t		text;
+	uint8_t		data;
+	uint8_t		bss;
 	char		*filename;
 }									t_file;
+
+typedef struct						s_cpu
+{
+	cpu_type_t		id;
+	char			*name;
+}									t_cpu;
 
 t_file								load_file(char *filname);
 void								ft_freefile(t_file file);
 int									check_file(t_file file);
-int									parse_magic(uint32_t magic, void *ptr);
+void								parse_magic(uint32_t magic, t_file *file);
+char								*get_cpu_type_name(cpu_type_t type);
+uint32_t							get_uint32(uint32_t byte, uint8_t endian);
+uint64_t							get_uint64(uint64_t byte, uint8_t endian);
 
 #endif

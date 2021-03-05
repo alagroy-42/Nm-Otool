@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 12:24:28 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/03 14:00:13 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/05 15:43:30 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	loop_segs(t_file *file, t_seg *cmd, int *i_sect)
 	int		i;
 
 	i = -1;
-	nsects = cmd->nsects;
+	nsects = get_uint32(cmd->nsects, file->endian);
 	sect = (void *)cmd + sizeof(t_seg);
 	while (++i < nsects)
 	{
@@ -44,7 +44,7 @@ static void	loop_segs_64(t_file *file, t_seg64 *cmd, int *i_sect)
 	int		i;
 
 	i = -1;
-	nsects = cmd->nsects;
+	nsects = get_uint32(cmd->nsects, file->endian);
 	sect = (void *)cmd + sizeof(t_seg64);
 	while (++i < nsects)
 	{
@@ -74,21 +74,21 @@ void		find_sect_index(t_file *file)
 		return ;
 	if (file->arch == ARCH_64)
 	{
-		ncmds = ((t_mh_64 *)(file->ptr))->ncmds;
+		ncmds = get_uint32(((t_mh_64 *)(file->ptr))->ncmds, file->endian);
 		cmd = file->ptr + sizeof(t_mh_64);
 	}
 	else
 	{
-		ncmds = ((t_mh *)(file->ptr))->ncmds;
+		ncmds = get_uint32(((t_mh *)(file->ptr))->ncmds, file->endian);
 		cmd = file->ptr + sizeof(t_mh);
 	}
 	i_sect = 1;
 	while (++i < ncmds)
 	{
-		if (((t_lc *)cmd)->cmd == LC_SEGMENT)
+		if (get_uint32(((t_lc *)cmd)->cmd, file->endian) == LC_SEGMENT)
 			loop_segs(file, cmd, &i_sect);
-		else if (((t_lc *)cmd)->cmd == LC_SEGMENT_64)
+		else if (get_uint32(((t_lc *)cmd)->cmd, file->endian) == LC_SEGMENT_64)
 			loop_segs_64(file, cmd, &i_sect);
-		cmd += ((t_lc *)cmd)->cmdsize;
+		cmd += get_uint32(((t_lc *)cmd)->cmdsize, file->endian);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:32:52 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/03 11:47:22 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/05 16:58:42 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ typedef struct nlist_64			t_nlist64;
 
 typedef struct					s_nm
 {
-	char		g;
-	char		j;
-	char		u;
+	uint8_t		g;
+	uint8_t		j;
+	uint8_t		u;
 	char		**filelist;
 }								t_nm;
 
@@ -41,14 +41,17 @@ typedef struct					s_sym
 
 t_nm							parse_args(int ac, char **av);
 void							ft_process_file(t_file file, t_nm nm);
-t_list							*get_symlist_64(t_file file, t_symtab *symtab);
-t_list							*get_symlist(t_file file, t_symtab *symtab);
-void							display_syms(t_list *list, t_nm nm, t_file f);
+t_sym							*get_symlist_64(t_file file, t_symtab *symtab);
+t_sym							*get_symlist(t_file file, t_symtab *symtab);
+void							display_syms(t_sym *list, t_nm nm, t_file file,
+									uint32_t nsyms);
 int								sym_is_global(t_sym *sym);
 int								sym_is_undefined(t_sym *sym);
 char							get_sym_type(t_sym *sym, t_file *file);
 uint64_t						get_sym_value(t_sym *sym, int width);
 void							find_sect_index(t_file *file);
 void							process_archive(t_file *file, t_nm nm);
+void							process_fat(t_file *file, t_nm nm);
+void							ft_process_mo(t_file file, t_nm nm);
 
 #endif
