@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 12:24:28 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/05 15:43:30 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:31:12 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	loop_segs(t_file *file, t_seg *cmd, int *i_sect)
 	i = -1;
 	nsects = get_uint32(cmd->nsects, file->endian);
 	sect = (void *)cmd + sizeof(t_seg);
-	while (++i < nsects)
+	while (++i < nsects && (void *)sect < file->end)
 	{
 		if (!ft_strcmp(((t_sect *)sect)->segname, "__TEXT")
 			&& !ft_strcmp(((t_sect *)sect)->sectname, "__text"))
@@ -46,7 +46,7 @@ static void	loop_segs_64(t_file *file, t_seg64 *cmd, int *i_sect)
 	i = -1;
 	nsects = get_uint32(cmd->nsects, file->endian);
 	sect = (void *)cmd + sizeof(t_seg64);
-	while (++i < nsects)
+	while (++i < nsects && (void *)sect < file->end)
 	{
 		if (!ft_strcmp(((t_sect64 *)sect)->segname, "__TEXT")
 			&& !ft_strcmp(((t_sect64 *)sect)->sectname, "__text"))
@@ -70,8 +70,6 @@ void		find_sect_index(t_file *file)
 	int			ncmds;
 
 	i = -1;
-	if (!file->arch || file->arch > FAT_64)
-		return ;
 	if (file->arch == ARCH_64)
 	{
 		ncmds = get_uint32(((t_mh_64 *)(file->ptr))->ncmds, file->endian);
@@ -83,7 +81,7 @@ void		find_sect_index(t_file *file)
 		cmd = file->ptr + sizeof(t_mh);
 	}
 	i_sect = 1;
-	while (++i < ncmds)
+	while (++i < ncmds && cmd < file->end)
 	{
 		if (get_uint32(((t_lc *)cmd)->cmd, file->endian) == LC_SEGMENT)
 			loop_segs(file, cmd, &i_sect);

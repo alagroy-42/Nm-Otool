@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:43:54 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/05 16:58:28 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:22:50 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_symtab	*find_symtab_64(t_file file)
 	i = -1;
 	ncmds = get_uint32(((t_mh_64 *)(file.ptr))->ncmds, file.endian);
 	cmd = file.ptr + sizeof(t_mh_64);
-	while (++i < ncmds)
+	while (++i < ncmds && cmd < file.end)
 	{
 		if (get_uint32(((t_lc *)cmd)->cmd, file.endian) == LC_SYMTAB)
 			return (cmd);
@@ -39,7 +39,7 @@ static t_symtab	*find_symtab(t_file file)
 	i = -1;
 	ncmds = get_uint32(((t_mh *)(file.ptr))->ncmds, file.endian);
 	cmd = file.ptr + sizeof(t_mh);
-	while (++i < ncmds)
+	while (++i < ncmds && cmd < file.end)
 	{
 		if (get_uint32(((t_lc *)cmd)->cmd, file.endian) == LC_SYMTAB)
 			return (cmd);

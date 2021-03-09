@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 15:15:22 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/02/25 12:37:58 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 13:34:58 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static t_nm	get_options(int ac, char **av, int *offset)
 			}
 		}
 	}
-	if (!ft_strcmp(av[i], "--"))
+	if (i < ac && !ft_strcmp(av[i], "--"))
 		i++;
 	*offset = i - 1;
 	return (nm);

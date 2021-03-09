@@ -6,11 +6,22 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:01:41 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/05 15:34:05 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:21:25 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_nm.h"
+
+static void	sym_del(t_sym **sym_list, uint32_t nsyms)
+{
+	uint32_t	i;
+
+	i = -1;
+	while (++i < nsyms)
+		ft_strdel(&(*sym_list)[i].name);
+	free(*sym_list);
+	*sym_list = NULL;
+}
 
 static int	check_display(t_sym *sym)
 {
@@ -40,7 +51,8 @@ void		display_syms(t_sym *sym_list, t_nm nm, t_file file, uint32_t nsyms)
 			continue ;
 		if (nm.j || nm.u)
 			ft_putendl(sym_list[i].name);
-		else if (!sym_is_undefined(&sym_list[i]))
+		else if (!(sym_is_global(&sym_list[i])
+				&& sym_is_undefined(&sym_list[i])))
 			ft_printf("%0*llx %c %s\n", w, get_sym_value(&sym_list[i], w),
 				get_sym_type(&sym_list[i], &file),
 				sym_list[i].name);
@@ -48,5 +60,5 @@ void		display_syms(t_sym *sym_list, t_nm nm, t_file file, uint32_t nsyms)
 			ft_printf("%*c %c %s\n", w, ' ', get_sym_type(&sym_list[i], &file),
 				sym_list[i].name);
 	}
-	// free_syms(sym_list);
+	sym_del(&sym_list, nsyms);
 }

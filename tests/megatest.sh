@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in `ls`; do
+for i in /bin/* /usr/bin/*; do
 	echo processing $i
 	nm $i > nm.dif 2>&-
 	../ft_nm $i > mine.dif 2>&-

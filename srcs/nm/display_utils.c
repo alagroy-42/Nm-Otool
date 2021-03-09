@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 12:53:50 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/03 16:30:49 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:27:32 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ char		get_sym_type(t_sym *sym, t_file *file)
 {
 	char	c;
 
-	c = ' ';
-	if (sym_is_undefined(sym) && sym_is_global(sym)
+	c = '?';
+	if (((sym->nlist.nlist64.n_type) & N_TYPE) == N_STAB
+		&& !sym->nlist.nlist64.n_type)
+		c = '-';
+	else if (sym_is_undefined(sym) && sym_is_global(sym)
 		&& sym->nlist.nlist64.n_value)
 		c = 'C';
 	else if (sym_is_undefined(sym))

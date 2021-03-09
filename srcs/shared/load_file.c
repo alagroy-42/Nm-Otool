@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 12:05:06 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/05 14:34:55 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:35:13 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void		parse_magic(uint32_t magic, t_file *file)
 	else if (magic == FAT_MAGIC || magic == FAT_CIGAM)
 		file->arch = FAT_32;
 	else if (magic == FAT_MAGIC_64 || magic == FAT_CIGAM_64)
-		file->arch = FAT_64;	
+		file->arch = FAT_64;
 	else
 		file->arch = E_NOOBJ;
 	if (magic == MH_CIGAM || magic == MH_CIGAM_64 || magic == FAT_CIGAM
 		|| magic == FAT_CIGAM_64)
 		file->endian = LENDIAN;
 	else
-		file->endian = BENDIAN;	
+		file->endian = BENDIAN;
 }
 
 int			check_file(t_file file)
@@ -57,6 +57,8 @@ t_file		load_file(char *filename)
 	int			magic;
 
 	ft_bzero(&file, sizeof(t_file));
+	if (!(file.filename = ft_strdup(filename)))
+		file.arch = E_NOMEM;
 	if ((file.fd = open(filename, O_RDONLY)) == -1
 		|| fstat(file.fd, &filestats) == -1)
 		return (file);
@@ -67,10 +69,9 @@ t_file		load_file(char *filename)
 		file.arch = E_NOMEM;
 		return (file);
 	}
-	*(char *)((void *)file.ptr + file.size - 1) = 0;
+	file.end = file.ptr + file.size - 1;
+	*(char *)(file.end) = 0;
 	magic = *(uint32_t *)file.ptr;
 	parse_magic(magic, &file);
-	if (!(file.filename = ft_strdup(filename)))
-		file.arch = E_NOMEM;
 	return (file);
 }

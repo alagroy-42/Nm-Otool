@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:34:12 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/05 17:27:53 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:37:17 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct						s_file
 {
 	int			fd;
 	void		*ptr;
+	void		*end;
 	off_t		size;
 	uint8_t		endian;
 	uint8_t		arch;

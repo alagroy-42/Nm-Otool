@@ -6,7 +6,7 @@
 #    By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/17 17:52:36 by alagroy-          #+#    #+#              #
-#    Updated: 2021/02/26 12:29:30 by alagroy-         ###   ########.fr        #
+#    Updated: 2021/03/08 15:57:08 by alagroy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ vpath %.c srcs/lst/
 vpath %.c srcs/gnl/
 vpath %.c srcs/printf/
 
-CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 
 INCLUDES = ./includes/
 HEADER += $(INCLUDES)libft.h 
