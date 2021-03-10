@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:34:12 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/09 11:37:17 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:30:25 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void								parse_magic(uint32_t magic, t_file *file);
 char								*get_cpu_type_name(cpu_type_t type);
 uint32_t							get_uint32(uint32_t byte, uint8_t endian);
 uint64_t							get_uint64(uint64_t byte, uint8_t endian);
+char								**get_files(int ac, char **av, int offset);
 
 #endif

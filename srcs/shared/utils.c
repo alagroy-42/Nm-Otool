@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 14:17:43 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/05 16:58:56 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:47:28 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,26 @@ char		*get_cpu_type_name(cpu_type_t type)
 		if (type == g_translation_tab[i].id)
 			return (g_translation_tab[i].name);
 	return (g_translation_tab[i].name);
+}
+
+char		**get_files(int ac, char **av, int offset)
+{
+	int		i;
+	size_t	size;
+	char	**filelist;
+
+	size = ac - offset;
+	i = offset;
+	if (!(filelist = (char **)malloc(size * sizeof(char **))))
+		exit(EXIT_FAILURE);
+	ft_bzero(filelist, size * sizeof(char **));
+	while (++i < ac)
+	{
+		if (!(filelist[i - offset - 1] = ft_strdup(av[i])))
+		{
+			ft_2dstrdel(&filelist);
+			exit(EXIT_FAILURE);
+		}
+	}
+	return (filelist);
 }
