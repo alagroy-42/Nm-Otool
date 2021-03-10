@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:33:42 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/10 14:16:34 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:58:42 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ t_otool				parse_args(int ac, char **av);
 void				process_macho(t_file *file, t_otool *otool);
 void				display(t_file *file, t_otool *otool, t_usect *text);
 void				get_line(char *line, void *ptr, void *end, t_file *file);
+void				process_file(t_file *file, t_otool *otool);
+void				process_archive(t_file *file, t_otool *otool);
+void				process_fat(t_file *file, t_otool *otool);
 
 #endif

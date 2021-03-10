@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:54:49 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/10 16:27:03 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:56:07 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,5 @@ void			process_macho(t_file *file, t_otool *otool)
 		if (!(text.section = find_text_sect(file)))
 			return ;
 	}
-	ft_putendl("display");
 	display(file, otool, &text);
 }

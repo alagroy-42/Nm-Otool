@@ -6,7 +6,7 @@
 #    By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 16:41:59 by alagroy-          #+#    #+#              #
-#    Updated: 2021/03/10 12:36:56 by alagroy-         ###   ########.fr        #
+#    Updated: 2021/03/10 16:57:49 by alagroy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ LIB = $(LIBDIR)libft.a
 
 SRC_NM =	ft_nm.c parse_args.c read_file.c symtab.c display.c display_utils.c \
 			sections.c archive.c fat.c
-SRC_OTOOL = ft_otool.c parse_args.c macho.c display.c display_utils.c
+SRC_OTOOL = ft_otool.c parse_args.c macho.c display.c display_utils.c archive.c \
+			fat.c
 SRC_SHARED = load_file.c utils.c endian.c
 
 SRCS += $(addprefix $(SRC_PATH)nm/, $(SRC_NM))

@@ -6,16 +6,20 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:30:47 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/09 17:02:33 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/10 16:59:20 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_otool.h"
 
-static void	process_file(t_file *file, t_otool *otool)
+void		process_file(t_file *file, t_otool *otool)
 {
 	if (file->arch == ARCH_32 || file->arch == ARCH_64)
 		process_macho(file, otool);
+	if (file->arch == ARCHIVE)
+		process_archive(file, otool);
+	if (file->arch == FAT_32 || file->arch == FAT_64)
+		process_fat(file, otool);
 }
 
 int			main(int ac, char **av)
