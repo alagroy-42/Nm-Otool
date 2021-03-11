@@ -6,11 +6,19 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:30:47 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/10 16:59:20 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:10:02 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_otool.h"
+
+void		display_file_name(t_file *file)
+{
+	if (file->arch == ARCH_32 || file->arch == ARCH_64)
+		ft_printf("%s:\n", file->filename);
+	if (file->arch == ARCHIVE)
+		ft_printf("Archive : %s\n", file->filename);
+}
 
 void		process_file(t_file *file, t_otool *otool)
 {
@@ -34,13 +42,17 @@ int			main(int ac, char **av)
 	while (otool.filelist[++i])
 	{
 		file = load_file(otool.filelist[i]);
-		if (check_file(file) == EXIT_SUCCESS)
+		if (check_file(file, STDOUT_FILENO) == EXIT_SUCCESS)
+		{
+			display_file_name(&file);
 			process_file(&file, &otool);
+		}
 		else
 			error = file.arch;
 		ft_freefile(file);
 		if (error == E_BADFILE)
 			break ;
 	}
+	ft_2dstrdel(&otool.filelist);
 	return (EXIT_SUCCESS);
 }

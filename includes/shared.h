@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:34:12 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/09 16:30:25 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 14:15:32 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@
 # define FAT_64 5
 # define E_NOOBJ 6
 # define E_NOMEM 7
+# define E_TRUNC 8
 
 # define ERROR_OPEN "File cannot be opened, check its existence and its rights"
-# define ERROR_MAGIC "The file was not recognized as a valid object file"
+# define ERROR_NOOBJ "%s: is not an object file\n"
+# define ERROR_TRUNC "truncated or malformed object"
 
 # define BENDIAN 1
 # define LENDIAN 2
@@ -75,7 +77,7 @@ typedef struct						s_cpu
 
 t_file								load_file(char *filname);
 void								ft_freefile(t_file file);
-int									check_file(t_file file);
+int									check_file(t_file file, int nobj_fd);
 void								parse_magic(uint32_t magic, t_file *file);
 char								*get_cpu_type_name(cpu_type_t type);
 uint32_t							get_uint32(uint32_t byte, uint8_t endian);

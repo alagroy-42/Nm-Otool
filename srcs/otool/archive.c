@@ -6,13 +6,13 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:37:47 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/10 16:54:48 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:12:23 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_otool.h"
 
-static char		*get_member_name(void *ptr)
+static char	*get_member_name(void *ptr)
 {
 	int		i;
 

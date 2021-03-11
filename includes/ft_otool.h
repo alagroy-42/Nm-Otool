@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:33:42 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/10 16:58:42 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:57:48 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void				get_line(char *line, void *ptr, void *end, t_file *file);
 void				process_file(t_file *file, t_otool *otool);
 void				process_archive(t_file *file, t_otool *otool);
 void				process_fat(t_file *file, t_otool *otool);
+void				display_file_name(t_file *file);
 
 #endif

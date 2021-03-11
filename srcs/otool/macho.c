@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:54:49 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/10 16:56:07 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:11:34 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_sect	*get_text_section(t_seg *seg, t_file *file)
 {
 	uint32_t	i;
 	uint32_t	nsects;
-	t_sect	*sect;
+	t_sect		*sect;
 
 	i = -1;
 	nsects = get_uint32(seg->nsects, file->endian);

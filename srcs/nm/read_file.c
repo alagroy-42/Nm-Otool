@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 11:43:54 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/09 12:22:50 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:33:53 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void			ft_process_mo(t_file file, t_nm nm)
 
 void			ft_process_file(t_file file, t_nm nm)
 {
+	*(char *)(file.end) = 0;
 	if (file.arch == ARCH_64 || file.arch == ARCH_32)
 		return (ft_process_mo(file, nm));
 	else if (file.arch == ARCHIVE)

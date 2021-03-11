@@ -6,13 +6,13 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 16:35:21 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/10 15:34:16 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 13:12:37 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_otool.h"
 
-static void	enable_opt(t_otool *otool, char opt)
+static void		enable_opt(t_otool *otool, char opt)
 {
 	if (opt == 'h')
 		otool->h = 1;
@@ -49,7 +49,7 @@ static t_otool	get_options(int ac, char **av, int *offset)
 	return (otool);
 }
 
-t_otool		parse_args(int ac, char **av)
+t_otool			parse_args(int ac, char **av)
 {
 	t_otool	otool;
 	int		offset;

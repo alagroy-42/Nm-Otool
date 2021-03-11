@@ -6,7 +6,7 @@
 /*   By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:29:07 by alagroy-          #+#    #+#             */
-/*   Updated: 2021/03/09 16:27:25 by alagroy-         ###   ########.fr       */
+/*   Updated: 2021/03/11 12:33:40 by alagroy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int		main(int ac, char **av)
 	while (nm.filelist[++i])
 	{
 		file = load_file(nm.filelist[i]);
-		if (check_file(file) == EXIT_SUCCESS)
+		if (check_file(file, STDERR_FILENO) == EXIT_SUCCESS)
 			ft_process_file(file, nm);
 		ft_freefile(file);
 	}
 	if (i == 0)
 	{
 		file = load_file("a.out");
-		if (check_file(file) == EXIT_SUCCESS)
+		if (check_file(file, STDERR_FILENO) == EXIT_SUCCESS)
 			ft_process_file(file, nm);
 		ft_freefile(file);
 	}

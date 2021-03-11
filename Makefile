@@ -6,7 +6,7 @@
 #    By: alagroy- <alagroy-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/19 16:41:59 by alagroy-          #+#    #+#              #
-#    Updated: 2021/03/10 16:57:49 by alagroy-         ###   ########.fr        #
+#    Updated: 2021/03/11 13:07:43 by alagroy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ OBJS_SHARED = $(addprefix $(OBJ_PATH)shared/, $(SRC_SHARED:.c=.o))
 OBJS = $(subst $(SRC_PATH),$(OBJ_PATH),$(SRCS:.c=.o))
 
 CC = clang
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=address
 CFLAGS += $(addprefix -I , $(INCLUDE_PATH))
 
 HEADER += ./includes/ft_nm.h
